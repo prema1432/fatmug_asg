@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}Video List{% endblock %}
+
+{% block content %}
+    <h2>List of Videos</h2>
+    {% include 'alerts.html' %}
+    <br>
+    <a class="upload_video btn btn-primary float-right" href="{% url 'video_upload' %}">Upload Video</a>
+    <br>
+    <hr>
+    <table id="videos-table" class="display">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Closed Captions</th>
+            <th>Actions</th>
+            <th>Created At</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for video in videos %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ video.title }}</td>
+                <td>{{ video.closed_captions|yesno:"True,False" }}</td>
+                <td>
+                    <a href="{% url 'video_detail_and_search' video.id %}" class="btn btn-success btn-sm">
+                        <i class="bi bi-eye-fill"></i>
+                    </a>
+                    <form method="post" action="{% url 'video_delete' video.id %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button class="btn btn-danger btn-sm" type="submit"><i class="bi bi-trash"></i></button>
+                    </form>
+                </td>
+                <td>
+                    {{ video.created_at|date:"Y-m-d H:i:s" }}
+                </td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="4">No videos found.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% block scripts %}
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                if (!$.fn.DataTable.isDataTable('#videos-table')) {
+                    $('#videos-table').DataTable({
+                        "paging": true,
+                        "searching": true,
+                        "pageLength": 10, // Number of records per page
+                        "lengthMenu": [5, 10, 25, 50, 100] // Options for number of records per page
+                    });
+                }
+            });
+        </script>
+    {% endblock %}
+{% endblock %}

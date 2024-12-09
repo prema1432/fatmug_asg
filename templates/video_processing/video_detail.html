@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="centered-content">
+        <a class="btn btn-primary btn-sm" href="{% url 'video_list' %}">Home</a>
+        {% include 'alerts.html' %}
+
+        <h2>{{ video.title }}</h2>
+        <p>Created on: {{ video.created_at }}</p>
+        <hr>
+        <video id="videoPlayer" width="640" height="360" controls autoplay>
+            {% if query %}
+                <source src="{{ video.video_file.url }}#t={{ start_time }},{{ end_time }}" type="video/mp4">
+            {% else %}
+                <source src="{{ video.video_file.url }}" type="video/mp4">
+            {% endif %}
+            Your browser does not support the video tag.
+
+            {% if video.subtitle_file %}
+                <track src="{{ video.subtitle_file.url }}" kind="subtitles" srclang="{{ video.language }}"
+                       label="English" default>
+            {% else %}
+                <p>No subtitles available</p>
+            {% endif %}
+        </video>
+        <hr>
+
+        <h3>Search Subtitles</h3>
+        <div class="centered-search">
+            <form method="get" action="{% url 'video_detail_and_search' video.id %}">
+                <input type="text" name="q" placeholder="Search for a phrase..." value="{{ query }}">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+     <div class="centered-search">
+        {% if matching_subtitles %}
+            <h4>Search Results:</h4>
+            <ul>
+                {% for subtitle in matching_subtitles %}
+                    <li>
+                        <a class="subtitles"
+                           href="{% url 'video_detail_and_search' video.id %}?q={{ subtitle.text|urlencode }}"
+                           onclick="seekTo({{ subtitle.start_time|floatformat:0 }})">
+                            {{ subtitle.start_time }} - {{ subtitle.end_time }} : <span class="sub_text">{{ subtitle.text }}</span>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% elif query %}
+            <p class>No results found for "{{ query }}"</p>
+        {% endif %}
+            </div>
+
+        <hr>
+
+        <div class="accordion accordion-flush" id="accordionFlushExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingOne">
+                    <button class="accordion-button collapsed accord_subtitle" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                        Subtitles
+                    </button>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+                     data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        {% for subtitle in video.subtitles.all %}
+                            {{ subtitle.start_time }} - {{ subtitle.end_time }} : "{{ subtitle.text }}" <br>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            var video = document.querySelector('#videoPlayer');
+
+            function seekTo(seconds) {
+                video.currentTime = seconds;
+                video.play();
+            }
+
+        </script>
+    </div>
+{% endblock %}

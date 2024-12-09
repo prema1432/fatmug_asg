@@ -1,0 +1,109 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Django stuff:
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+
+# If you're using PostgreSQL or another DB locally
+*.pgdata
+
+# Migrations
+migrations/
+
+# Django specific files
+local_settings.py
+db.sqlite3
+staticfiles/
+
+# Virtual environment (Python)
+env/
+venv/
+ENV/
+*.env
+
+# Python Egg
+*.egg-info/
+.eggs/
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Celery beat schedule file
+celerybeat-schedule
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+*.egg
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# pyenv
+.python-version
+
+# Docker-related
+docker-compose.override.yml
+docker-compose.*
+Dockerfile*
+.dockerignore
+
+# Redis and Celery related
+*.pid
+*.celerybeat.pid
+celerybeat-schedule*
+
+# Log files
+*.log
+
+# Test-related
+coverage/
+htmlcov/
+.tox/
+.nox/
+pytest_cache/
+cover/
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+
+# Environments and Editors
+.reenv
+.idea/
+.vscode/
+*.swp
+*.swo
+*.swn
+
+# Ignore node_modules if using Node.js (for frontend assets)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*

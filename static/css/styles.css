@@ -1,0 +1,63 @@
+* {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+}
+
+header h1 {
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
+    font-weight: bold;
+    color: blue;
+}
+
+.footer_note {
+    text-align: center;
+    font-weight: bold;
+}
+
+.upload_video {
+    text-decoration: None;
+    text-align: center;
+}
+
+.float-right {
+    float: right;
+    margin-right: 20px;
+}
+
+.centered-form {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.accord_subtitle {
+    font-weight: bold;
+    color: blue;
+}
+
+button.accordion-button.collapsed.accord_subtitle {
+    font-weight: bold;
+    color: blue;
+    background: darkseagreen;
+}
+
+.centered-search {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+.subtitles{
+    text-decoration: none;
+}
+.sub_text{
+    font-weight: bold;
+    color: orange;
+}
